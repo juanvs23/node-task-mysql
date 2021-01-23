@@ -3,6 +3,9 @@ html(lang='es')
     head
         include head
        
-    body
-        block contenido
+    body.g-sidenav-show.g-sidenav-pinned
+        include side-bar
+        div(id="panel").main-content
+            include top-bar
+            block contenido
         include foot

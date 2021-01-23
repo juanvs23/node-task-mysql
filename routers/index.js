@@ -1,12 +1,17 @@
 const express =require('express');
+const ProyectosController = require('../controllers/ProyectosController')
 
 const router = express.Router()
 
+const { body } = require( 'express-validator' );
+
+
+
 module.exports= function (){
-    router.get('/',(req,res)=>{
-        res.render('index',{
-            title : "On Dogs: Man's Best Friend"
-        });
-    })
+    router.get('/',ProyectosController.ProyectoHome)
+    router.get('/nuevo-proyecto',ProyectosController.ProyectoFormulario)
+    router.post('/nuevo-proyecto',
+    body('name').trim().escape(),
+    ProyectosController.NuevoProyecto)
     return router;
 }

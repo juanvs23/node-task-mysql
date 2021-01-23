@@ -1,0 +1,38 @@
+nav.navbar.navbar-top.navbar-expand.navbar-dark.bg-primary.border-bottom
+   .container-fluid
+        h2 #{titleBar}
+        div(class="collapse navbar-collapse",id="navbarSupportedContent")
+            ul(class="navbar-nav align-items-center ml-md-auto")
+                li(class="nav-item d-xl-none")
+                    div(class="pr-3 sidenav-toggler sidenav-toggler-dark",data-action="sidenav-pin",data-target="#sidenav-main")
+                        div(class="sidenav-toggler-inner")
+                            i(class="sidenav-toggler-line")
+                            i(class="sidenav-toggler-line")
+                            i(class="sidenav-toggler-line")
+            ul(class="ml-auto navbar-nav align-items-center ml-md-0 ")
+                li(class="nav-item dropdown")
+                   a.nav-link.pr-0(href="#", role="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+                        .media.align-items-center
+                            span.avatar.avatar-sm.rounded-circle
+                                img(alt="Image placeholder", src="https://picsum.photos/200/200")
+                            .media-body.ml-2.d-none.d-lg-block
+                                span.mb-0.text-sm.font-weight-bold John Snow
+                        .dropdown-menu.dropdown-menu-right
+                            .dropdown-header.noti-title
+                                h6.text-overflow.m-0 Welcome!
+                            a.dropdown-item(href="#!")
+                                i.ni.ni-single-02
+                                span My profile
+                            a.dropdown-item(href="#!")
+                                i.ni.ni-settings-gear-65
+                                span Settings
+                            a.dropdown-item(href="#!")
+                                i.ni.ni-calendar-grid-58
+                                span Activity
+                            a.dropdown-item(href="#!")
+                                i.ni.ni-support-16
+                                span Support
+                            .dropdown-divider
+                            a.dropdown-item(href="#!")
+                                i.ni.ni-user-run
+                                span Logout

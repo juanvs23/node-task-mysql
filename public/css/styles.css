@@ -1,0 +1,10 @@
+.content.contenido-principal {
+    padding: 15px;
+}
+a.add-proyect {
+    background: #5e72e4;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 30px;
+}

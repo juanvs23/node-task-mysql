@@ -4,16 +4,31 @@ const express =require('express'),
       path=require('path'),
       port=3200
 
+const connect = require('./configs/connect');
+const helpers = require('./helpers')
 
 //invoca a express
 const app =express();
-
+//habilitar body parser
+app.use(bodyParser.urlencoded({extended:false}))
 //carpeta public
 app.use('/assets',express.static( __dirname +'/public'));
 
+//carga de modelos
+require('./models/ProyectosModel')
+
+//cargar conexion
+connect.sync()
+    .then(()=>console.log('conectado'))
 //app.use(express.static('public'));
 // Habilitar Pug
 app.set('view engine', 'pug');
+
+//agregar varDump
+app.use((req,res,next)=>{
+    res.locals.vardump=helpers.varDump;
+    next();
+})
 
 //habilita rutas
 app.use('/', routes() );

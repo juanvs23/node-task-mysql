@@ -1,5 +1,15 @@
 extends layout
 
 block contenido
-    .contenido-principal
-        h1 hola
+    .header.bg-primary.pb-6
+    .content.contenido-principal.container
+        if success
+           .success-container
+                each val in success
+                    .alert.alert-success.alert-dismissible.fade.show(role="alert")
+                        span.alert-icon
+                            i.fa.fa-check-circle
+                        span.alert-text
+                            strong EXITO |  #{val.texto}
+                        button.close(type="button", data-dismiss="alert", aria-label="Close")
+                            span(aria-hidden="true") ×

@@ -1,0 +1,20 @@
+nav(id="sidenav-main",class="bg-white sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light")
+   .scroll-wrapper.scrollbar-inner
+        .scrollbar-inner.scroll-content
+            .sidenav-header.align-items-center
+                a.navbar-brand(href="/")
+                    h1 Uptask
+                .navbar-inner
+                    .collapse.navbar-collapse
+                        a.add-proyect(href="/nuevo-proyecto")
+                            i.fas.fa-plus
+                            span  Nuevo Proyecto
+                        ul.navbar-nav.proyectos
+                            //- li.nav-item
+                            //-     a(class="nav-link active", href="#")
+                            //-         span.nav-link-text Nombre del proyecto
+                            if(allProyectos)
+                                each proyecto in allProyectos
+                                    li.nav-item
+                                        a(class="nav-link", href=`/`+proyecto.url)
+                                           span=proyecto.nombre

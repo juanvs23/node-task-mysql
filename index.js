@@ -29,6 +29,12 @@ app.use((req,res,next)=>{
     res.locals.vardump=helpers.varDump;
     next();
 })
+//Agregar fecha
+app.use((req,res,next)=>{
+    res.locals.timeDate=helpers.timeDate
+    
+    next()
+})
 
 //habilita rutas
 app.use('/', routes() );

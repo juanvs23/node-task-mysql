@@ -1,7 +1,7 @@
 extends ../layout
-
+include ../mixins/formulario
 block contenido
-    .header.bg-primary.pb-6
+    .header.bg-primary.mb-5
       
     .content.contenido-principal.container
         if errors
@@ -14,33 +14,25 @@ block contenido
                             strong Alerta |  #{val.texto}
                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                             span(aria-hidden="true") ×
-
+        if success
+            .success-container
+                each val in success
+                    .alert.alert-success.alert-dismissible.fade.show(role="alert")
+                        span.alert-icon
+                            i.fa.fa-check-circle
+                        span.alert-text
+                            strong EXITO |  #{val.texto}
+                        button.close(type="button", data-dismiss="alert", aria-label="Close")
+                            span(aria-hidden="true") ×
         
         .row.justify-content-center
-            form(action="/nuevo-proyecto", method="post",id="form-proyect",class="col-md-6")
-                h1(class="text-center display-2") Nuevo Proyecto
-                div(class="form-group")
-                    label(for="name"  id="name-label"  class="form-control-label") Nombre del proyecto 
-                    input(class="form-control form-control-alternative" type="text" placeholder="Nombre del proyecto aqui" id="name" name="name")
-                .form-row
-                    .col-md-6
-                        .form-group
-                            label.form-control-label(for="example-date-input") Fecha de inicio
-                            input.form-control.form-control-alternative.dates#fecha-inicio(type="date", data-date-format="dd/mm/yyyy", name="startDate")
-                    .col-md-6
-                        .form-group
-                            label.form-control-label(for="example-date-input") Fecha Limite
-                            input.form-control.form-control-alternative.dates#fecha-fin(type="date", data-date-format="dd/mm/yyyy" , name="enddate")
-                .form-group
-                    .form-row.justify-content-center
-                        button.btn.btn-success.btn-lg.btn-block(type="Submit") 
-                            i.ni.ni-send
-                            span  Enviar
+            +crearProyecto(proyecto)
         .container.container-back.pd-6
             a(href="/" class="regresar")
                 i.fa.fa-chevron-left
                 span  Regresar
 
-
-                   
+        script(type="text/javascript").
+            console.log('hola')
+                    
                 

@@ -1,0 +1,74 @@
+extends ../layout
+
+block contenido
+    .header.bg-primary.mb-5
+        h1.display-5.text-white.text-center=proyecto.nombre
+    .content.contenido-principal.container
+        if errors
+           .errors-container
+                each val in errors
+                    .alert.alert-danger.alert-dismissible.fade.show(role="alert")
+                        span.alert-icon
+                            i.fa.fa-times-circle
+                        span.alert-text
+                            strong Alerta |  #{val.texto}
+                        button.close(type="button", data-dismiss="alert", aria-label="Close")
+                            span(aria-hidden="true") ×
+
+        .row.justify-content-center
+            .col-md-5.proyecto-detail.bg-info.p-3.rounded.mb-3
+                .row.title-proyect
+                    .col-4.title-name
+                        b Proyecto
+                    .col-8.name=proyecto.nombre
+                .row
+                    .col-4.proyect-description
+                        b Descripción
+                    .col-8.description=proyecto.descripcion
+                .row
+                    .col-6.start-date
+                        table.table
+                            thead
+                                tr
+                                    th(scope="col") Fecha de inicio
+                            tbody
+                                tr
+                                    td=proyecto.startDate
+                    .col-6.end-date
+                        table.table
+                            thead
+                                tr
+                                    th(scope="col") Fecha de inicio
+                            tbody
+                                tr
+                                    td=proyecto.endDate
+            .col-md-7
+                h3.display-3.text-center Lista de tareas
+                .task-list
+                    .card
+        .row.justify-content-center
+          .col-md-4
+            a.btn.btn-block.btn-warning.mb-3(href="/editar-proyecto/"+proyecto.id) Editar Proyecto
+          .col-md-4
+            button.btn.btn-block.btn-danger.mb-3(type="button", data-toggle="modal", data-target="#modal-notification") Borrar Proyecto
+            .modal.fade#modal-notification(tabindex="-1", role="dialog", aria-labelledby="modal-notification", aria-hidden="true")
+                .modal-dialog.modal-danger.modal-dialog-centered.modal-(role="document")
+                    .modal-content.bg-gradient-danger
+                        .modal-header
+                            h6.modal-title#modal-title-notification ¡Atención!
+                            button.close(type="button", data-dismiss="modal", aria-label="Close")
+                            span(aria-hidden="true") ×
+                        .modal-body
+                            .py-3.text-center
+                                i.ni.ni-bell-55.ni-3x
+                                h4.heading.mt-4 Estas a punto de borrar este proyecto
+                                p El proyecto est a punto de ser borrado y eliminado completamente.
+                        .modal-footer
+                            a.btn.btn-white(href="/borrar-proyecto/"+proyecto.id) Borrar
+                            button.btn.btn-link.text-white.ml-auto(type="button", data-dismiss="modal") Cerrar
+  
+        .container.container-back.pd-6
+            a(href="/" class="regresar")
+                i.fa.fa-chevron-left
+                span  Regresar
+        pre=vardump(proyecto)

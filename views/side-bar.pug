@@ -10,11 +10,8 @@ nav(id="sidenav-main",class="bg-white sidenav navbar navbar-vertical fixed-left 
                             i.fas.fa-plus
                             span  Nuevo Proyecto
                         ul.navbar-nav.proyectos
-                            //- li.nav-item
-                            //-     a(class="nav-link active", href="#")
-                            //-         span.nav-link-text Nombre del proyecto
                             if(allProyectos)
                                 each proyecto in allProyectos
                                     li.nav-item
-                                        a(class="nav-link", href=`/`+proyecto.url)
+                                        a(class="nav-link", href=`/proyectos/`+proyecto.url)
                                            span=proyecto.nombre

@@ -1,0 +1,24 @@
+mixin crearProyecto(proyecto = {})
+    form(action=proyecto.nombre ? `/proyecto-editado/${proyecto.id}`:'/nuevo-proyecto', method="post",id="form-proyect",class="col-md-6")
+        h1(class="text-center display-2")=proyecto.id ? `Editar ${proyecto.nombre}`:'Nuevo Proyecto'
+        div(class="form-group")
+            label(for="name"  id="name-label"  class="form-control-label") Nombre del proyecto 
+            input(class="form-control form-control-alternative" type="text" placeholder="Nombre del proyecto aqui" id="name" name="name"  value=proyecto.nombre)
+        .form-row
+            .col-md-6
+                .form-group
+                    label.form-control-label(for="startDate") Fecha de inicio
+                    input.form-control.form-control-alternative.dates#fecha-inicio(type="date", value=proyecto.startDate data-date-format="dd/mm/yyyy", name="startDate")
+            .col-md-6
+                .form-group
+                    label.form-control-label(for="enddate") Fecha Limite
+                    input.form-control.form-control-alternative.dates#fecha-fin(type="date", value=proyecto.endDate data-date-format="dd/mm/yyyy" , name="enddate")
+            .col-md-12
+                .form-group
+                    label.form-control-label(for="descripcion") Desccripcion del proyecto
+                    textarea.form-control.form-control-alternative#descripcion(  name="descripcion" placeholder="no mas de 256 caractares")=proyecto.descripcion
+        .form-group
+            .form-row.justify-content-center
+                button.btn.btn-success.btn-lg.btn-block(type="Submit") 
+                    i.ni.ni-send
+                    span=proyecto.nombre ? 'Guardar':'Agregar'

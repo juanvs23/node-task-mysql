@@ -130,20 +130,71 @@ exports.EditarProyecto=async(req,res)=>{
         })
      }
 }
-exports.UpdateProyecto = (req,res) => {
-   
-    proyectos.create({
-        nombre:req.body.name,
-        descripcion:req.body.descripcion,
-        startDate: req.body.startDate,
-        endDate: req.body.startDate
+exports.UpdateProyecto =async  (req,res) => {
+    const allProyectos= await proyectos.findAll();
+    const proyecto= await proyectos.findOne({
+        where:{
+            id:req.params.id
+        }
     })
-    .then(()=>console.log('exito proyecto actualizado con exito'))
-    .catch((error)=>{console.log(error)})
-    res.redirect('/')
+    console.log( proyecto)
+
+   if (req.body.name=="" || req.body.startDate=="" || req.body.enddate ==""|| req.body.enddate==today ) {
+        let errorArray=[]
+        if (req.body.name=="") {
+             errorArray.push( {
+                texto:"Nombre de proyecto Vacio"
+               })
+            }
+        if (req.body.startDate=="") {
+            errorArray.push( {
+                texto:"Fecha de inicio del proyecto Vacio"
+                })
+            }
+        if (req.body.enddate=="") {
+        errorArray.push( {
+            texto:"Fecha de fin del proyecto Vacio"
+            })
+        }
+        res.render('pages/nuevo-proyecto',{
+            title : "Nuevo proyecto",
+            today,
+            titleBar:"Añadir proyecto",
+            errors: errorArray,
+            allProyectos
+
+           
+            
+        });
+    } else {
+       
+      await  proyecto.update({
+            nombre:req.body.name,
+            descripcion:req.body.descripcion,
+            startDate: req.body.startDate,
+            endDate: req.body.startDate
+        })
+        .then(()=>console.log('proyecto actualizado con exito'))
+        .catch((error)=>{console.log(error)})
+        res.render('pages/nuevo-proyecto',{
+            title : "Uptask",
+            titleBar:"Inicio",
+            successUpdate:[
+                {
+                    texto:"¡El proyecto a sido guardado con exito!"
+                }
+            ],
+            allProyectos
+        });
+    } 
 
 }
-exports.BorrarProyecto= (req,res)=>{
-    res.redirect('/')
+exports.BorrarProyecto= async(req,res)=>{
+    await   proyectos.destroy({
+        where: {
+           id:req.params.id 
+        }
+     })
+    res.redirect('/');
 
 }

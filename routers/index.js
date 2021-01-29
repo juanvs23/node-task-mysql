@@ -16,7 +16,7 @@ module.exports= function (){
     router.get('/editar-proyecto/:id',
     body('name').trim().escape(),
     ProyectosController.EditarProyecto)
-    router.get('/editar-proyecto/:id',
+    router.post('/proyecto-editado/:id',
     body('name').trim().escape(),
     ProyectosController.UpdateProyecto)
     router.get('/proyectos/:url',ProyectosController.ProyectoDetails)

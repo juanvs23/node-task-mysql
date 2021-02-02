@@ -1,4 +1,5 @@
 const proyectos =require('../models/ProyectosModel')
+const Tareas= require('../models/tareasModel')
 //const slug = require('slug')
 let day = new Date();
 let today=`${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
@@ -32,12 +33,19 @@ exports.ProyectoDetails= async (req,res)=>{
            url:req.params.url
        }
    })
+   const alltareasbyProyecto =await Tareas.findAll({
+    where:{
+        proyectoId:proyecto.id
+    }
+   })
+   console.log(proyecto.id)
    if(!proyecto){
     res.render('pages/error404',{
         title :`Error 404`,
        
         titleBar:`El proyecto no existe`,
         allProyectos,
+       
        
     });
    }else{
@@ -46,7 +54,8 @@ exports.ProyectoDetails= async (req,res)=>{
         today,
         titleBar:`Tareas en ${proyecto.nombre}`,
         allProyectos,
-        proyecto
+        proyecto,
+        alltareasbyProyecto
     });
    }
 }
@@ -112,6 +121,7 @@ exports.EditarProyecto=async(req,res)=>{
         }
     })
     if(!proyecto){
+        //proyecto no encontrado
      res.render('pages/error404',{
          title :`Error 404`,
         
@@ -189,12 +199,26 @@ exports.UpdateProyecto =async  (req,res) => {
     } 
 
 }
+//borrar proyectos
 exports.BorrarProyecto= async(req,res)=>{
     await   proyectos.destroy({
         where: {
            id:req.params.id 
         }
-     })
-    res.redirect('/');
+     })  
+     res.send('Archivo borrado')
+}
 
+
+//errores de pagina no encontrada
+exports.Error404=async(req,res,next)=>{
+    const allProyectos= await proyectos.findAll();
+    res.status(404)
+    res.render('pages/error404',{
+        title :`Error 404`,
+       
+        titleBar:`Pagina desconocida`,
+        allProyectos,
+       
+    })
 }

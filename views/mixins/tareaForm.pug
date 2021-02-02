@@ -1,0 +1,51 @@
+mixin editarTarea(tareasbyProyecto = {})
+    .card.mb-2(id=`task-${tareasbyProyecto.id}`)
+        .card-header
+            .row
+                .col-10
+                    h3.display-4.mb-0.text-center=tareasbyProyecto.tarea
+                .col-1
+                    a(href="javascript:void(0);" data-delete-target=`${tareasbyProyecto.id}`).text-danger
+                        .fa.fa-trash
+                .col-1
+                    a(href="javascript:void(0);" data-edit-target=`${tareasbyProyecto.id}`).text-success.edit-task-button
+                        .fa.fa-edit
+            .row
+                .col-12
+                    pre=vardump(tareasbyProyecto)
+                .col-12
+                   .progress-wrapper
+                        .progress-info
+                            .progress-label
+                                if (tareasbyProyecto.completado==0)
+                                    span(class="text-white bg-danger") Tarea Pendiente
+                                else
+                                    span(class="text-white bg-success") Tarea completada
+                            .progress-percentage
+                                span=`${tareasbyProyecto.porcentaje}%`
+                        .progress
+                            div( class="progress-bar bg-default" role='progressbar', aria-valuenow=tareasbyProyecto.porcentaje , aria-valuemin='0', aria-valuemax='100', style=`width: ${tareasbyProyecto.porcentaje}%;`)
+        .card-body.task-dont-show
+            h4.display-4.text-center.p-0 Editar estado de la tarea
+            form
+                .row.p-1
+                    .form-group.col-md-8
+                        label(for="nuevaTarea") Nombre de la tarea
+                        input.form-control(id=`name-${tareasbyProyecto.id}` type="text", name="nuevaTarea" placeholder='Nombre de la tarea' value=`${tareasbyProyecto.tarea}`)
+                    .form-group.col-md-4
+                            label(for="nuevaTarea") Tarea Completada
+                            label.custom-toggle
+                                input(type='checkbox')
+                                span.custom-toggle-slider.rounded-circle(data-label-off='No')
+                .row.p-1
+                    .form-group.col-md-8
+                           .input-slider-container
+                                #input-slider.input-slider(data-range-value-min='100', data-range-value-max='500')
+                                .row.mt-3
+                                    .col-6
+                                        span#input-slider-value.range-slider-value(data-range-value-low='100')
+                    .form-group.col-md-4
+                                button.btn.btn-success.btn-lg.btn-block(type="Submit") 
+                                    i.ni.ni-button-play
+                
+                

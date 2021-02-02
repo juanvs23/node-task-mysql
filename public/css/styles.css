@@ -11,3 +11,16 @@ a.add-proyect {
 .header{
     padding-top: 88px;
 }
+.form-control {
+    font-size: .875rem;
+    min-height: 50px;
+}
+.card-body{
+    transition: 0.3s all;
+}
+.task-dont-show{
+    transition: 0.3s all;
+    height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+}

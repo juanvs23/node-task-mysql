@@ -6,16 +6,18 @@ const express =require('express'),
 
 const connect = require('./configs/connect');
 const helpers = require('./helpers')
-
+const router404 = require('./routers/index')
 //invoca a express
 const app =express();
 //habilitar body parser
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({extended:true}))
+
 //carpeta public
 app.use('/assets',express.static( __dirname +'/public'));
 
 //carga de modelos
 require('./models/ProyectosModel')
+require('./models/tareasModel')
 
 //cargar conexion
 connect.sync()
@@ -36,8 +38,11 @@ app.use((req,res,next)=>{
     next()
 })
 
+
+
 //habilita rutas
 app.use('/', routes() );
+
 
 // Añadir la carpeta de las vistas
 app.set('views', path.join(__dirname, './views'));

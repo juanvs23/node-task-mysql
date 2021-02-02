@@ -1,5 +1,5 @@
 mixin crearProyecto(proyecto = {})
-    form(action=proyecto.nombre ? `/proyecto-editado/${proyecto.id}`:'/nuevo-proyecto', method="post",id="form-proyect",class="col-md-6")
+    form(action=proyecto.nombre ? `/proyecto-editado/${proyecto.id}`:'/proyecto-creado', method="post",id=proyecto.nombre ? `form-edit-proyect`:'form-new-proyect',class="col-md-6")
         h1(class="text-center display-2")=proyecto.id ? `Editar ${proyecto.nombre}`:'Nuevo Proyecto'
         div(class="form-group")
             label(for="name"  id="name-label"  class="form-control-label") Nombre del proyecto 

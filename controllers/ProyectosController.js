@@ -5,18 +5,31 @@ let day = new Date();
 let today=`${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
 
 exports.ProyectoHome=async (req,res)=>{
-const allProyectos= await proyectos.findAll();
- 
+const allProyectos= await proyectos.findAll( {
+    where:{
+        status:1
+    }
+});
+const allTask =await Tareas.findAll();
+
     res.render('index',{
-        title : "On Dogs: Man's Best Friend",
-        titleBar:"Inicio",
-        allProyectos
+        title : "Sistema de seguimimiento de tareas",
+        titleBar:"Escritorio principal",
+        allProyectos,
+        allTask,
+        nombre:"Juan Carlos"
+
       
     });
 }
 
 exports.ProyectoFormulario=async (req,res)=>{
-    const allProyectos= await proyectos.findAll();
+    const allProyectos= await proyectos.findAll( {
+        where:{
+            status:1
+        }
+    });
+    
   
     res.render('pages/nuevo-proyecto',{
         title : "Nuevo proyecto",
@@ -24,10 +37,15 @@ exports.ProyectoFormulario=async (req,res)=>{
         titleBar:"Añadir proyecto",
         allProyectos
     });
-
 }
 exports.ProyectoDetails= async (req,res)=>{
-    const allProyectos= await proyectos.findAll();
+    const allProyectos= await proyectos.findAll(
+        {
+            where:{
+                status:1
+            }
+        }
+    );
    const proyecto= await proyectos.findOne({
        where:{
            url:req.params.url
@@ -60,61 +78,45 @@ exports.ProyectoDetails= async (req,res)=>{
    }
 }
 exports.NuevoProyecto=async(req,res)=>{
-    const allProyectos= await proyectos.findAll();
    
 
-    if (req.body.name=="" || req.body.startDate=="" || req.body.enddate ==""|| req.body.enddate==today ) {
-        let errorArray=[]
-        if (req.body.name=="") {
-             errorArray.push( {
-                texto:"Nombre de proyecto Vacio"
-               })
+    console.log(req.body)
+   const busca=await proyectos.findAll( {
+       where:{
+                status:1,
+                nombre:req.body.name
             }
-        if (req.body.startDate=="") {
-            errorArray.push( {
-                texto:"Fecha de inicio del proyecto Vacio"
-                })
-            }
-        if (req.body.enddate=="") {
-        errorArray.push( {
-            texto:"Fecha de fin del proyecto Vacio"
-            })
-        }
-        res.render('pages/nuevo-proyecto',{
-            title : "Nuevo proyecto",
-            today,
-            titleBar:"Añadir proyecto",
-            errors: errorArray,
-            allProyectos
-
-           
-            
-        });
-    } else {
-       
-        proyectos.create({
-            nombre:req.body.name,
-            descripcion:req.body.descripcion,
-            startDate: req.body.startDate,
-            endDate: req.body.startDate
-        })
-        .then(()=>console.log('exito proyecto guardado'))
-        .catch((error)=>{console.log(error)})
-        res.render('pages/nuevo-proyecto',{
-            title : "Uptask",
-            titleBar:"Inicio",
-            success:[
-                {
-                    texto:"¡El proyecto a sido guardado con exito!"
-                }
-            ],
-            allProyectos
-        });
+})
+    if(busca.length>0){
+        res.send('existe')
+        console.log('exite uno')
+    }else{
+        await proyectos.create({
+              nombre:req.body.name,
+              descripcion:req.body.descripcion,
+              startDate: req.body.startDate,
+              endDate: req.body.startDate,
+              status:1
+          })
+          .then(()=>console.log('exito proyecto guardado'))
+          .catch((error)=>{console.log(error)})
+        console.log('No exite')
+        res.send('no existe')
     }
    
+   
+  
+       
+       
+    
+ 
 };
 exports.EditarProyecto=async(req,res)=>{
-    const allProyectos= await proyectos.findAll();
+    const allProyectos= await proyectos.findAll( {
+        where:{
+            status:1
+        }
+    });
     const proyecto= await proyectos.findOne({
         where:{
             id:req.params.id
@@ -141,7 +143,11 @@ exports.EditarProyecto=async(req,res)=>{
      }
 }
 exports.UpdateProyecto =async  (req,res) => {
-    const allProyectos= await proyectos.findAll();
+    const allProyectos= await proyectos.findAll( {
+        where:{
+            status:1
+        }
+    });
     const proyecto= await proyectos.findOne({
         where:{
             id:req.params.id
@@ -201,11 +207,15 @@ exports.UpdateProyecto =async  (req,res) => {
 }
 //borrar proyectos
 exports.BorrarProyecto= async(req,res)=>{
-    await   proyectos.destroy({
+   const borrarProyecto=  await   proyectos.findOne({
         where: {
            id:req.params.id 
         }
-     })  
+     })
+     console.log(borrarProyecto)
+     await borrarProyecto.update({
+        status:0 
+     })
      res.send('Archivo borrado')
 }
 

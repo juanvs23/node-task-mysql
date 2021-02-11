@@ -48,7 +48,7 @@ block contenido
                     .card-header.p-1.bg-transparent
                         h3.display-3.text-center.text-white.mb-0 Nueva tarea
                     .card-body    
-                        form(action='/nueva-tarea/'+proyecto.url method="POST" id="nueva-tarea").row
+                        form(action='/dashboard/nueva-tarea/'+proyecto.url method="POST" id="nueva-tarea").row
                             .col-10
                                 div(class="mb-0 form-group")
                                     input(class="form-control form-control-alternative" type="text" placeholder="Nueva tarea aqui" id="tarea" name="nuevaTarea" )
@@ -72,12 +72,12 @@ block contenido
                     
         .row.justify-content-center.mt-6
           .col-md-4
-            a.btn.btn-block.btn-warning.mb-3(href="/editar-proyecto/"+proyecto.id) Editar Proyecto
+            a.btn.btn-block.btn-warning.mb-3(href="/dashboard/editar-proyecto/"+proyecto.id) Editar Proyecto
           .col-md-4
             button.btn.btn-block.btn-danger.mb-3(type="button",id="delete-work", data-work-target=proyecto.id) Borrar Proyecto
             
   
         .container.container-back.pd-6
-            a(href="/" class="regresar")
+            a(href="/dashboard/" class="regresar")
                 i.fa.fa-chevron-left
                 span  Regresar

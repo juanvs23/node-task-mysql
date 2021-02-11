@@ -1,6 +1,7 @@
 mixin crearProyecto(proyecto = {})
-    form(action=proyecto.nombre ? `/proyecto-editado/${proyecto.id}`:'/proyecto-creado', method="post",id=proyecto.nombre ? `form-edit-proyect`:'form-new-proyect',class="col-md-6")
+    form(action=proyecto.nombre ? `/dashboard/proyecto-editado/${proyecto.id}`:'/dashboard/proyecto-creado', method="post",id=proyecto.nombre ? `form-edit-proyect`:'form-new-proyect',class="col-md-6")
         h1(class="text-center display-2")=proyecto.id ? `Editar ${proyecto.nombre}`:'Nuevo Proyecto'
+       
         div(class="form-group")
             label(for="name"  id="name-label"  class="form-control-label") Nombre del proyecto 
             input(class="form-control form-control-alternative" type="text" placeholder="Nombre del proyecto aqui" id="name" name="name"  value=proyecto.nombre)
@@ -22,3 +23,4 @@ mixin crearProyecto(proyecto = {})
                 button.btn.btn-success.btn-lg.btn-block(type="Submit") 
                     i.ni.ni-send
                     span=proyecto.nombre ? 'Guardar':'Agregar'
+        .alert-errors

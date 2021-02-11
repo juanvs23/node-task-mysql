@@ -5,14 +5,13 @@ mixin editarTarea(tareasbyProyecto = {})
                 .col-10
                     h3.display-4.mb-0.text-center=tareasbyProyecto.tarea
                 .col-1
-                    a(href="javascript:void(0);" data-delete-target=`${tareasbyProyecto.id}`).text-danger
+                    a(href="javascript:void(0);" data-delete-target=`${tareasbyProyecto.id}`).text-danger.delete-task
                         .fa.fa-trash
                 .col-1
                     a(href="javascript:void(0);" data-edit-target=`${tareasbyProyecto.id}`).text-success.edit-task-button
                         .fa.fa-edit
             .row
-                .col-12
-                    pre=vardump(tareasbyProyecto)
+               
                 .col-12
                    .progress-wrapper
                         .progress-info
@@ -27,25 +26,33 @@ mixin editarTarea(tareasbyProyecto = {})
                             div( class="progress-bar bg-default" role='progressbar', aria-valuenow=tareasbyProyecto.porcentaje , aria-valuemin='0', aria-valuemax='100', style=`width: ${tareasbyProyecto.porcentaje}%;`)
         .card-body.task-dont-show
             h4.display-4.text-center.p-0 Editar estado de la tarea
-            form
+            form(action=`/dashboard/edit-task/${tareasbyProyecto.id}` method="post")
                 .row.p-1
-                    .form-group.col-md-8
+                    .form-group.col-8
                         label(for="nuevaTarea") Nombre de la tarea
                         input.form-control(id=`name-${tareasbyProyecto.id}` type="text", name="nuevaTarea" placeholder='Nombre de la tarea' value=`${tareasbyProyecto.tarea}`)
-                    .form-group.col-md-4
-                            label(for="nuevaTarea") Tarea Completada
-                            label.custom-toggle
-                                input(type='checkbox')
-                                span.custom-toggle-slider.rounded-circle(data-label-off='No')
+                    .form-group.col-4
+                       p  ¿Completada?
+                       label.custom-toggle(for=`check-${tareasbyProyecto.id}`)
+                           if (tareasbyProyecto.completado==0)
+                                input(type="checkbox" id=`check-${tareasbyProyecto.id}` name="completado" value="1" )
+                           else
+                                input(type="checkbox" id=`check-${tareasbyProyecto.id}` name="completado" value="1" checked) 
+                           span.custom-toggle-slider.rounded-circle
+                           b.toggle-decription Si
+                       
+                   
                 .row.p-1
-                    .form-group.col-md-8
-                           .input-slider-container
-                                #input-slider.input-slider(data-range-value-min='100', data-range-value-max='500')
-                                .row.mt-3
-                                    .col-6
-                                        span#input-slider-value.range-slider-value(data-range-value-low='100')
-                    .form-group.col-md-4
+                   
+                    .form-group.col-12
+                       .input-slider-container
+                            .input-slider.estado-range(data-range-id=tareasbyProyecto.id data-value=`${tareasbyProyecto.porcentaje}` id=`slider-range-${tareasbyProyecto.id}`)
+                            .row.mt-3
+                                .col-6
+                                    input.range-slider-value.form-control-muted.value-slider( type="text" id=`show-value-${tareasbyProyecto.id}` name="porcentaje" )
+                    .form-group.col-12
                                 button.btn.btn-success.btn-lg.btn-block(type="Submit") 
                                     i.ni.ni-button-play
+                                    
                 
                 

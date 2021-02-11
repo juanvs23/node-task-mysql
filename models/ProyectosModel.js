@@ -13,7 +13,8 @@ const Proyectos= connect.define('proyectos',{
     url : DataTypes.STRING(100),
     descripcion:DataTypes.STRING(256),
     startDate: DataTypes.STRING(10),
-    endDate: DataTypes.STRING(10)
+    endDate: DataTypes.STRING(10),
+    status: DataTypes.INTEGER(1)
 },
 {
     timestamps: false,

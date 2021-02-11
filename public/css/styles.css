@@ -8,12 +8,28 @@ a.add-proyect {
     text-align: center;
     margin-bottom: 30px;
 }
+.invalid {
+    border: red 1px solid;
+}
 .header{
     padding-top: 88px;
 }
 .form-control {
     font-size: .875rem;
     min-height: 50px;
+}
+.range-slider-value {
+    max-width: 66px;
+    font-size: 15px;
+    border-radius: 30px;
+    text-align: center;
+    padding: 5px 7px;
+    border: none;
+    pointer-events:none;
+}
+b.toggle-decription {
+    margin-left: 56px;
+    position: absolute;
 }
 .card-body{
     transition: 0.3s all;
@@ -23,4 +39,13 @@ a.add-proyect {
     height: 0;
     overflow: hidden;
     padding: 0 !important;
+}
+@media ( max-width:991px){
+    nav#sidenav-main {
+        width: 0;
+        padding: 5px;
+    }
+    .navbar-vertical.navbar-expand-xs.fixed-left + .main-content {
+        margin-left: 0;
+    }
 }

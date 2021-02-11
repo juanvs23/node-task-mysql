@@ -9,20 +9,24 @@ const { body } = require( 'express-validator' );
 
 
 module.exports= function (){
-    router.get('/',ProyectosController.ProyectoHome)
-    router.get('/nuevo-proyecto',ProyectosController.ProyectoFormulario)
-    router.post('/proyecto-creado',
+    router.get('/dashboard/',ProyectosController.ProyectoHome)
+    router.get('/dashboard/nuevo-proyecto',ProyectosController.ProyectoFormulario)
+    router.post('/dashboard/proyecto-creado',
     body('name').trim().escape(),
     ProyectosController.NuevoProyecto)
-    router.get('/editar-proyecto/:id',
+    router.get('/dashboard/editar-proyecto/:id',
     body('name').trim().escape(),
     ProyectosController.EditarProyecto)
-    router.post('/proyecto-editado/:id',
+    router.post('/dashboard/proyecto-editado/:id',
     body('name').trim().escape(),
     ProyectosController.UpdateProyecto)
-    router.get('/proyectos/:url',ProyectosController.ProyectoDetails)
-    router.delete('/borrar-proyecto/:id',ProyectosController.BorrarProyecto)
-    router.post('/nueva-tarea/:url',TareasController.NuevaTarea)
+    router.get('/dashboard/proyectos/:url',ProyectosController.ProyectoDetails)
+    router.post('/dashboard/borrar-proyecto/:id',ProyectosController.BorrarProyecto)
+    router.post('/dashboard/nueva-tarea/:url',TareasController.NuevaTarea)
+    router.delete('/dashboard/delete-task/:id',TareasController.BorrarTarea)
+    router.post('/dashboard/edit-task/:id',
+       TareasController.EditTask
+    );
     //paginas 404
     router.get('*',ProyectosController.Error404)
     

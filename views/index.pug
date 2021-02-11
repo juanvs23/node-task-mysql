@@ -1,7 +1,24 @@
 extends layout
 
 block contenido
-    .header.bg-primary.mb-5
-        
+    .header.bg-primary.mb-5 
+        h2.display-2.text-center.text-white Hola #{nombre}
     .content.contenido-principal.container
-       
+        
+        .row
+            .col-md-6
+                h3.display-3 Listado de proyectos activos
+                if (allProyectos.length>0)
+                    each proyecto in allProyectos
+                        h3=proyecto.nombre
+                        each tarea in allTask
+                            if (tarea.proyectoId == proyecto.id )
+                                pre=tarea.tarea
+                                script.
+                                   const proyectos="#{vardump(allTask)}"
+                                   console.log(proyectos)
+                else
+                    h4.display-4.text-success No hay proyectos activos                                           
+            .col-md-6
+                pre=vardump(allTask)
+                pre=vardump(allProyectos)

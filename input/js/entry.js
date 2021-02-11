@@ -1,4 +1,5 @@
 import forms from './funcionality/forms'
+import components from './funcionality/components'
 
 
 

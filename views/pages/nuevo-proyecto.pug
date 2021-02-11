@@ -29,12 +29,12 @@ block contenido
                                 h4.heading.mt-4 El proyecto ha sido actualizado
                                 p Haz actualizado el proyecto correctamente.
                         .modal-footer
-                            a.btn.btn-white(href="/") Aceptar
+                            a.btn.btn-white(href="/dashboard") Aceptar
         .row.justify-content-center
             if !successUpdate
                 +crearProyecto(proyecto)
         .container.container-back.pd-6
-            a(href="/" class="regresar")
+            a(href="/dashboard" class="regresar")
                 i.fa.fa-chevron-left
                 span  Regresar
 

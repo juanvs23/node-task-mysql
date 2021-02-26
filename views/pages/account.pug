@@ -1,0 +1,83 @@
+extends ../layout-pages
+block contenido
+    include ../nav
+    .main-content
+        .header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9
+            .container
+                .header-body.text-center.mb-4
+                    .row.justify-content-center
+                        .col-xl-5.col-lg-6.col-md-8.px-5
+                            if register
+                                h1.text-white Crea una cuenta con nosotros
+                                p.text-lead.text-white Sigue el avance de tus proyectos con nosotros
+                            if login 
+                                h1.text-white Ingresa a tú cuenta uptask
+                                p.text-lead.text-white Tus proyectos esperan por ti... no los dejes solo.
+                            if recover 
+                                h1.text-white Recuperar contraseña
+                                p.text-lead.text-white Coloca tu correo
+            .separator.separator-bottom.separator-skew.zindex-100
+                svg(x='0' y='0' viewbox='0 0 2560 100' preserveaspectratio='none' version='1.1' xmlns='http://www.w3.org/2000/svg')
+                    polygon.fill-default(points='2560 0 2560 100 0 100')
+        .container.mt--8.pb-5
+            // Table
+            .row.justify-content-center
+                .col-lg-6.col-md-8
+                    .card.bg-secondary.border-0
+                        //.card-header.bg-transparent.pb-5
+                            .text-muted.text-center.mt-2.mb-4
+                                small Registrate con
+                            .text-center
+                                a.btn.btn-neutral.btn-icon.mr-4(href='#')
+                                    span.btn-inner--icon
+                                        img(src='../assets/img/icons/common/github.svg')
+                                    span.btn-inner--text Github
+                                a.btn.btn-neutral.btn-icon(href='#')
+                                    span.btn-inner--icon
+                                        img(src='../assets/img/icons/common/google.svg')
+                                    span.btn-inner--text Google
+                        .card-body.px-lg-5.py-lg-5
+                            .text-center.text-muted.mb-4
+                                h3.display-3.text-center=`${ register ? 'Registrate': login ? 'Iniciar sesión':'Recuparar contraseña'}`
+                            form(role='form', novalidate  id=`${ register ? 'new-account': login ? 'login-account':'recover-pass'}` method="post" action=`${ register ? '/new-account': login ? '/login':'recover-account'}`)
+                                if register
+                                    .form-group
+                                        .input-group.input-group-merge.input-group-alternative.mb-3
+                                            .input-group-prepend
+                                                span.input-group-text
+                                                    i.ni.ni-single-02
+                                            input.form-control(placeholder='Nombre' type='text' name="username")
+                                                   
+                                .form-group
+                                    .input-group.input-group-merge.input-group-alternative.mb-3
+                                        .input-group-prepend
+                                            span.input-group-text
+                                                i.ni.ni-email-83
+                                        input.form-control(placeholder='Correo' type='email' name="usermail")
+                                if !recover
+                                    .form-group
+                                        .input-group.input-group-merge.input-group-alternative
+                                            .input-group-prepend
+                                                span.input-group-text(id="show-pass")
+                                                     i.fa.fa-eye-slash
+                                            input.form-control(placeholder='Contraseña' type='password' name="userpass" maxlenght="8")
+                                if register  
+                                    .text-muted.font-italic.verify
+                                        small  Nivel de protección: 
+                                            span.font-weight-700.text-danger Muy Debil
+                                if error
+                                    .errores-login
+                                        each val in error
+                                            .alert=val
+                                
+                                .text-center
+                                    button.btn.btn-primary.mt-4(type='submit' id="button-submit")=`${register ? 'Crear cuenta': login ? 'Acceder':'Recuperar cuenta'}`
+                        .card-footer.bg-secondary.text-center.d-sm-flex.justify-content-between
+                            if register
+                                a.enlace-login(href="/login") Si ya estas registrado ingresa aquí
+                            if login 
+                                a.enlace-login(href="/register") ¿Nuevo usuario?
+                                h4.text-muted - o - 
+                                a.enlace-login(href="/pass-recover") ¿Olvidaste tú contraseña?
+    include ../footer 
+    

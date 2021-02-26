@@ -6,19 +6,48 @@ block contenido
     .content.contenido-principal.container
         
         .row
-            .col-md-6
-                h3.display-3 Listado de proyectos activos
+            .col-12
+                h3.display-3.text-center.pb-4 Listado de proyectos activos
                 if (allProyectos.length>0)
                     each proyecto in allProyectos
-                        h3=proyecto.nombre
-                        each tarea in allTask
-                            if (tarea.proyectoId == proyecto.id )
-                                pre=tarea.tarea
-                                script.
-                                   const proyectos="#{vardump(allTask)}"
-                                   console.log(proyectos)
+                        .card.mb-5
+                            .card-header.p-2
+                                h4.display-4=proyecto.nombre
+                            .table-responsive
+                                table(class="table align-items-center table-dark")
+                                    thead(class="thead-dark")
+                                        tr
+                                            th(scope="col" class="sort" data-sort="name") Tarea
+                                            th(scope="col" class="sort" data-sort="name") Estado
+                                            th(scope="col" class="sort" data-sort="name") Avance
+                                            th(scope="col" class="sort" data-sort="name") 
+                                    tbody(class="list")
+                                        each tarea in allTask
+                                            if (tarea.proyectoId == proyecto.id )
+                                                    tr
+                                                        td=tarea.tarea
+                                                        td
+                                                            if(tarea.completado==0)
+                                                                span.pendiente Pendiente
+                                                            else
+                                                                span.completado Completado
+                                                        td
+                                                            .progress
+                                                                .progress-bar(class=`${tarea.completado == 0? 'bg-warning':'bg-success'}`, role="progressbar", aria-valuenow=tarea.porcentaje, aria-valuemin="0", aria-valuemax="100",  style=`width:${tarea.porcentaje}%`)
+                                                        td.text-right
+                                                            .dropdown
+                                                                a.btn.btn-sm.btn-icon-only.text-light(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                                                    i.fas.fa-ellipsis-v
+                                                                .dropdown-menu.dropdown-menu-right.dropdown-menu-arrow
+                                                                    a.dropdown-item.text-success(href=`dashboard/proyectos/${proyecto.url}`)
+                                                                        .fa.fa-edit 
+                                                                        span  Editar tarea
+                                                                    a.dropdown-item.text-danger.delete-task(href="javascript:void(0);" data-delete-target=`${tarea.id}`)
+                                                                        .fa.fa-trash 
+                                                                        span  Borrar tarea
+                                                                    
+
+
                 else
                     h4.display-4.text-success No hay proyectos activos                                           
-            .col-md-6
-                pre=vardump(allTask)
-                pre=vardump(allProyectos)
+            

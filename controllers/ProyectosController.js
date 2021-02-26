@@ -5,6 +5,7 @@ let day = new Date();
 let today=`${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
 
 exports.ProyectoHome=async (req,res)=>{
+    const{username}= res.locals.user
 const allProyectos= await proyectos.findAll( {
     where:{
         status:1
@@ -17,13 +18,14 @@ const allTask =await Tareas.findAll();
         titleBar:"Escritorio principal",
         allProyectos,
         allTask,
-        nombre:"Juan Carlos"
+        nombre:username
 
       
     });
 }
 
 exports.ProyectoFormulario=async (req,res)=>{
+    const{username}= res.locals.user
     const allProyectos= await proyectos.findAll( {
         where:{
             status:1
@@ -35,10 +37,12 @@ exports.ProyectoFormulario=async (req,res)=>{
         title : "Nuevo proyecto",
         today,
         titleBar:"Añadir proyecto",
-        allProyectos
+        allProyectos,
+        nombre:username
     });
 }
 exports.ProyectoDetails= async (req,res)=>{
+    const{username}= res.locals.user
     const allProyectos= await proyectos.findAll(
         {
             where:{
@@ -60,7 +64,7 @@ exports.ProyectoDetails= async (req,res)=>{
    if(!proyecto){
     res.render('pages/error404',{
         title :`Error 404`,
-       
+        nombre:username,
         titleBar:`El proyecto no existe`,
         allProyectos,
        
@@ -73,6 +77,7 @@ exports.ProyectoDetails= async (req,res)=>{
         titleBar:`Tareas en ${proyecto.nombre}`,
         allProyectos,
         proyecto,
+        nombre:username,
         alltareasbyProyecto
     });
    }
@@ -89,7 +94,7 @@ exports.NuevoProyecto=async(req,res)=>{
 })
     if(busca.length>0){
         res.send('existe')
-        console.log('exite uno')
+       
     }else{
         await proyectos.create({
               nombre:req.body.name,
@@ -112,6 +117,7 @@ exports.NuevoProyecto=async(req,res)=>{
  
 };
 exports.EditarProyecto=async(req,res)=>{
+    const{username}= res.locals.user
     const allProyectos= await proyectos.findAll( {
         where:{
             status:1
@@ -124,9 +130,10 @@ exports.EditarProyecto=async(req,res)=>{
     })
     if(!proyecto){
         //proyecto no encontrado
+        
      res.render('pages/error404',{
          title :`Error 404`,
-        
+         nombre:username,
          titleBar:`El proyecto no existe`,
          allProyectos,
         
@@ -136,7 +143,8 @@ exports.EditarProyecto=async(req,res)=>{
             today,
             titleBar:"Añadir proyecto",
             allProyectos,
-            proyecto
+            proyecto,
+            nombre:username
            
             
         })
@@ -222,11 +230,13 @@ exports.BorrarProyecto= async(req,res)=>{
 
 //errores de pagina no encontrada
 exports.Error404=async(req,res,next)=>{
+    const{username}= res.locals.user
+    console.log(username)
     const allProyectos= await proyectos.findAll();
     res.status(404)
     res.render('pages/error404',{
         title :`Error 404`,
-       
+        nombre:username,
         titleBar:`Pagina desconocida`,
         allProyectos,
        

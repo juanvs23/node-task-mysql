@@ -6,9 +6,9 @@ const Proyectos = require('./ProyectosModel')
 
 const Tareas= connect.define('tareas',{
     id : {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+        primaryKey: true
     }, 
     tarea :  DataTypes.STRING(100),
     completado:DataTypes.INTEGER(1),

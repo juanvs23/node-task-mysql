@@ -1,0 +1,28 @@
+nav#navbar-main.navbar.navbar-horizontal.navbar-transparent.navbar-main.navbar-expand-lg.navbar-light
+        .container
+            a.navbar-brand(href='/')
+                img(src='/assets/img/brand/white.png')
+            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbar-collapse' aria-controls='navbar-collapse' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbar-collapse.navbar-collapse.navbar-custom-collapse.collapse
+                .navbar-collapse-header
+                    .row
+                        .col-6.collapse-brand
+                            a(href='i')
+                                img(src='../assets/img/brand/blue.png')
+                        .col-6.collapse-close
+                            button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbar-collapse' aria-controls='navbar-collapse' aria-expanded='false' aria-label='Toggle navigation')
+                                span
+                                span
+                ul.navbar-nav.mr-auto
+                    li.nav-item
+                        a.nav-link(href='/')
+                            span.nav-link-inner--text.text-lg-white home
+                    li.nav-item
+                        a.nav-link(href='/login')
+                            span.nav-link-inner--text.text-lg-white Login
+                    li.nav-item
+                        a.nav-link(href='/register')
+                            span.nav-link-inner--text.text-lg-white Register
+                hr.d-lg-none
+                

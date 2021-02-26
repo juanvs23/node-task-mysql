@@ -18,6 +18,22 @@ a.add-proyect {
     font-size: .875rem;
     min-height: 50px;
 }
+table.table.align-items-center.table-dark .pendiente {
+    color: #e7f521;
+}
+table.table.align-items-center.table-dark .completado {
+    color: #21f576;
+}
+nav#navbar-main {
+    position: absolute;
+    z-index: 110;
+    top: 0;
+    width: 100%;
+}
+.verify{
+    visibility: hidden;
+    opacity: 0;
+}
 .range-slider-value {
     max-width: 66px;
     font-size: 15px;
@@ -40,6 +56,16 @@ b.toggle-decription {
     overflow: hidden;
     padding: 0 !important;
 }
+.invalid-description {
+    display: block;
+    width: 100%;
+    color: white;
+    background: red;
+    padding-left: 10px;
+}
+button#button-submit {
+    min-width: 200px;
+}
 @media ( max-width:991px){
     nav#sidenav-main {
         width: 0;
@@ -47,5 +73,11 @@ b.toggle-decription {
     }
     .navbar-vertical.navbar-expand-xs.fixed-left + .main-content {
         margin-left: 0;
+    }
+   
+}
+@media (min-width:992px){
+    .text-lg-white{
+        color: white !important;
     }
 }

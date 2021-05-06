@@ -1,10 +1,16 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-const connect = new Sequelize('uptask', 'root', '', {
-    host: 'localhost',
-    dialect:'mysql'
-  },{
-    timestamps: false
-  });
+const connect = new Sequelize(
+  "uptask",
+  "root",
+  "",
+  {
+    host: "localhost",
+    dialect: "mysql",
+  },
+  {
+    timestamps: false,
+  }
+);
 
-module.exports=connect
+module.exports = connect;

@@ -1,31 +1,33 @@
-const { Secuelize, DataTypes } =require('sequelize');
-const slug = require('slug');
-const connect = require('../configs/connect');
-const  { default: ShortUniqueId }  = require('short-unique-id');
+const { Secuelize, DataTypes } = require("sequelize");
+const slug = require("slug");
+const connect = require("../configs/connect");
+const { default: ShortUniqueId } = require("short-unique-id");
 
-const Proyectos= connect.define('proyectos',{
-    id : {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    }, 
-    nombre :  DataTypes.STRING(100),
-    url : DataTypes.STRING(100),
-    descripcion:DataTypes.STRING(256),
+const Proyectos = connect.define(
+  "proyectos",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    nombre: DataTypes.STRING(100),
+    url: DataTypes.STRING(100),
+    descripcion: DataTypes.STRING(256),
     startDate: DataTypes.STRING(10),
     endDate: DataTypes.STRING(10),
-    status: DataTypes.INTEGER(1)
-},
-{
+    status: DataTypes.INTEGER(1),
+  },
+  {
     timestamps: false,
-    hooks:{
-        beforeCreate(producto){
-            const uid = new ShortUniqueId();
-            const url= slug(producto.dataValues.nombre).toLocaleLowerCase()
-            producto.dataValues.url=`${url}-${uid.seq()}`
-        }
-    }
-  })
+    hooks: {
+      beforeCreate(producto) {
+        const uid = new ShortUniqueId();
+        const url = slug(producto.dataValues.nombre).toLocaleLowerCase();
+        producto.dataValues.url = `${url}-${uid.seq()}`;
+      },
+    },
+  }
+);
 
-  
-module.exports=Proyectos
+module.exports = Proyectos;
